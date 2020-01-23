@@ -48,7 +48,8 @@ public class PiDigits {
             byte[] digits = new byte[count];
             double sum = 0;
 
-            for (int i = 0; i < count; i++) {
+            for (int i = start; i < count; i++) {
+            	System.out.println(i);
                 if (i % DigitsPerSum == 0) {
                     sum = 4 * sum(1, start)
                             - 2 * sum(4, start)
@@ -76,9 +77,9 @@ public class PiDigits {
     public static void divisionIntervalos (int n){
         int intervalos;
         intervalos = 1000000/n;
-        int x = 0;
+        int x = 1;
         int y = intervalos;
-        PiThread[] hilos = new PiThread[intervalos];
+        PiThread[] hilos = new PiThread[n];
         for (int i=0;i<=n;i++){
             hilos[i] = new PiThread(x,y);
             x = y + 1;
@@ -86,7 +87,7 @@ public class PiDigits {
             	y = 1000000;
             }
             else {
-            y = x + intervalos - 1;
+            	y = x + intervalos - 1;
             }
             hilos[i].start();
         }

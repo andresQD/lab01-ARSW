@@ -14,8 +14,9 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String a[]) {
+    	
     	PiDigits pr = new PiDigits();
-        pr.getDigits(1, 1000000,1);
+        pr.getDigits(1, 10,200);
         System.out.println(bytesToHex(pr.getResp()));
     }
 
