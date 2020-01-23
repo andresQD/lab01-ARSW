@@ -10,8 +10,21 @@ public class PiDigits {
 
     private static int DigitsPerSum = 8;
     private static double Epsilon = 1e-17;
+    private static byte[] resp = new byte[1000000];
+    
+    
 
-    /**
+    public static byte[] getResp() {
+		return resp;
+	}
+
+
+	public static void setResp(byte[] resp) {
+		PiDigits.resp = resp;
+	}
+
+
+	/**
      * Returns a range of hexadecimal digits of pi.
      *
      * @param n Numbers of threads.
@@ -19,7 +32,7 @@ public class PiDigits {
      * @param count The number of digits to return
      * @return An array containing the hexadecimal digits.
      */
-    public static byte[] getDigits(int start, int count, int n) {
+    public static void getDigits(int start, int count, int n) {
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
         }
@@ -29,9 +42,9 @@ public class PiDigits {
         }
 
         if (n >= 2) {
-            
-
-        } else {
+        	divisionIntervalos(n);
+        } 
+        else {
             byte[] digits = new byte[count];
             double sum = 0;
 
@@ -48,25 +61,35 @@ public class PiDigits {
                 sum = 16 * (sum - Math.floor(sum));
                 digits[i] = (byte) sum;
             }
-            return digits;
+            almacene (digits, start,count); 
         }
-        
-        return null;
     }
     
-    public int divisionIntervalos (int n){
+    
+    public static void almacene(byte[] digitos, int ini, int fin) {
+    	for (int i=ini;i<=fin;i++) {
+    		resp[i]=digitos[i];
+    	}
+    	
+    }
+    
+    public static void divisionIntervalos (int n){
         int intervalos;
         intervalos = 1000000/n;
         int x = 0;
         int y = intervalos;
         PiThread[] hilos = new PiThread[intervalos];
-        for (int i=0;i<intervalos;i++){
+        for (int i=0;i<=n;i++){
             hilos[i] = new PiThread(x,y);
             x = y + 1;
+            if (i==n-1) {
+            	y = 1000000;
+            }
+            else {
             y = x + intervalos - 1;
+            }
             hilos[i].start();
         }
-        return intervalos;
     }
 
     /// <summary>

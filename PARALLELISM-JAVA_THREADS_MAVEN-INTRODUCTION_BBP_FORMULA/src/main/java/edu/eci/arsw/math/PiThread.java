@@ -11,21 +11,19 @@ package edu.eci.arsw.math;
  */
 public class PiThread extends Thread {
 
-    int A;
-    int B;
+	int inicio;
+    int fin;
 
     public PiThread(int x, int y) {
-        A = x;
-        B = y;
+        inicio = x;
+        fin = y;
     }
 
     
 
     @Override
     public void run() {
-        for (int i = A; i <= B; i++) {
-            System.out.println(i);
-        }
+        PiDigits.getDigits(inicio, fin, 1);
     }
 
 }
