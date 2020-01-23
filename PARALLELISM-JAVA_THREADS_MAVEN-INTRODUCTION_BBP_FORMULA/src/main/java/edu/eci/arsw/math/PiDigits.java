@@ -11,14 +11,15 @@ public class PiDigits {
     private static int DigitsPerSum = 8;
     private static double Epsilon = 1e-17;
 
-    
     /**
      * Returns a range of hexadecimal digits of pi.
+     *
+     * @param n Numbers of threads.
      * @param start The starting location of the range.
      * @param count The number of digits to return
      * @return An array containing the hexadecimal digits.
      */
-    public static byte[] getDigits(int start, int count) {
+    public static byte[] getDigits(int start, int count, int n) {
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
         }
@@ -27,24 +28,45 @@ public class PiDigits {
             throw new RuntimeException("Invalid Interval");
         }
 
-        byte[] digits = new byte[count];
-        double sum = 0;
+        if (n >= 2) {
+            
 
-        for (int i = 0; i < count; i++) {
-            if (i % DigitsPerSum == 0) {
-                sum = 4 * sum(1, start)
-                        - 2 * sum(4, start)
-                        - sum(5, start)
-                        - sum(6, start);
+        } else {
+            byte[] digits = new byte[count];
+            double sum = 0;
 
-                start += DigitsPerSum;
+            for (int i = 0; i < count; i++) {
+                if (i % DigitsPerSum == 0) {
+                    sum = 4 * sum(1, start)
+                            - 2 * sum(4, start)
+                            - sum(5, start)
+                            - sum(6, start);
+
+                    start += DigitsPerSum;
+                }
+
+                sum = 16 * (sum - Math.floor(sum));
+                digits[i] = (byte) sum;
             }
-
-            sum = 16 * (sum - Math.floor(sum));
-            digits[i] = (byte) sum;
+            return digits;
         }
-
-        return digits;
+        
+        return null;
+    }
+    
+    public int divisionIntervalos (int n){
+        int intervalos;
+        intervalos = 1000000/n;
+        int x = 0;
+        int y = intervalos;
+        PiThread[] hilos = new PiThread[intervalos];
+        for (int i=0;i<intervalos;i++){
+            hilos[i] = new PiThread(x,y);
+            x = y + 1;
+            y = x + intervalos - 1;
+            hilos[i].start();
+        }
+        return intervalos;
     }
 
     /// <summary>
