@@ -2,7 +2,7 @@
 Part I – Introduction to Java Threads
 1.	Se realizó el siguiente código para imprimir números entre el rango A y B.
  
-
+![img1](https://user-images.githubusercontent.com/48091585/73084920-d43f6980-3e9b-11ea-88f1-7cad59f8da3e.jpg)
 
 
 
